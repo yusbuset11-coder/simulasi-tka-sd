@@ -1240,10 +1240,11 @@ elif menu_pilihan == "Download Hasil TKA":
   if os.path.exists(FILE_REKAP):
     df_download = pd.read_excel(FILE_REKAP)
     
-    # Menambahkan kolom "No." agar konsisten mulai dari angka 1 dengan header
+    # Menambahkan kolom "No." mulai dari angka 1
     df_download.insert(0, "No.", range(1, len(df_download) + 1))
     
-    st.dataframe(df_download, use_container_width=True)
+    # Tambahkan hide_index=True agar indeks 0, 1 bawaan hilang
+    st.dataframe(df_download, use_container_width=True, hide_index=True)
 
     output = io.BytesIO()
     with pd.ExcelWriter(output, engine="openpyxl") as writer:
