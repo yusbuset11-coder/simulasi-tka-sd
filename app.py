@@ -13,6 +13,18 @@ st.set_page_config(
     layout="centered",
 )
 
+# Tempatkan di bagian sidebar atau menu pengaturan/admin
+with st.sidebar:
+  st.subheader('Pengaturan Admin')
+  if st.button('🗑️ Hapus Semua Data Hasil Uji Coba'):
+    files_to_delete = ['rekap_hasil_tka.csv', 'rekap_hasil_tka.xlsx']
+    for file in files_to_delete:
+      if os.path.exists(file):
+        os.remove(file)
+    st.success(
+        'Semua data rekapitulasi berhasil dihapus! Silakan *refresh* halaman.'
+    )
+
 # --- CSS CUSTOM UNTUK WARNA TOMBOL YANG TEGAS ---
 st.markdown(
     """
