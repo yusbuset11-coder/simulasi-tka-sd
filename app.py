@@ -1759,7 +1759,6 @@ BANK_SOAL = {
             "id": 228,
             "kategori": "Analisis Teks Pidato",
             "soal": "Bagian pembuka dalam sebuah naskah pidato resmi umumnya berisi...",
-            ,
             "opsi": [
                 "Kesimpulan isi dan permohonan maaf",
                 "Salam pembuka, ucapan syukur, dan penghormatan kepada"
