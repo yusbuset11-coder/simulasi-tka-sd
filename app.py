@@ -23,7 +23,7 @@ with st.sidebar:
   )
 
   # Tombol hapus hanya muncul jika password benar
-  if password_admin == 'admin123':  # Anda bisa ubah 'admin123' sesuai keinginan
+  if password_admin == 'yus300869':  # Anda bisa ubah 'yus300869' sesuai keinginan
     st.success('Mode Admin Aktif ✓')
     if st.button('🗑️ Hapus Semua Data Hasil Uji Coba'):
       files_to_delete = ['rekap_hasil_tka.csv', 'rekap_hasil_tka.xlsx']
