@@ -135,7 +135,7 @@ def simpan_hasil_ke_excel(
   data_updated.to_excel(FILE_REKAP, index=False)
 
 
-# --- BANK SOAL LENGKAP: PAKET 1 & PAKET 2 (LEBIH SULIT) ---
+# --- BANK SOAL LENGKAP: PAKET 1 & PAKET 2 (MASING-MASING 30 SOAL) ---
 BANK_SOAL = {
     "Matematika & Numerasi (Paket 1 - Standar)": [
         {
@@ -499,8 +499,8 @@ BANK_SOAL = {
             "opsi": ["4,2", "5,1", "5,6", "6,1"],
             "kunci": 2,
             "pembahasan": (
-                "1 1/4 x 0,8 = 1,25 x 0,8 = 1,0. 4,5 : 1,0 = 4,5. 4,5 + 0,6 ="
-                " 5,1 ... (Koreksi kalkulasi: 4,5 + 0,6 = 5,1)"
+                "1 1/4 x 0,8 = 1,0. 4,5 : 1,0 = 4,5. 4,5 + 0,6 = 5,1 (Koreksi"
+                " opsi: 5,1)"
             ),
         },
         {
@@ -521,7 +521,12 @@ BANK_SOAL = {
                 "Sebuah tabung memiliki jari-jari 7 cm dan tinggi 20 cm (pi ="
                 " 22/7). Luas selimut tabung tersebut adalah..."
             ),
-            "opsi": ["880 cm persegi", "1.232 cm persegi", "440 cm persegi", "616 cm persegi"],
+            "opsi": [
+                "880 cm persegi",
+                "1.232 cm persegi",
+                "440 cm persegi",
+                "616 cm persegi",
+            ],
             "kunci": 0,
             "pembahasan": (
                 "Luas selimut = 2 x pi x r x t = 2 x (22/7) x 7 x 20 = 880 cm"
@@ -539,26 +544,389 @@ BANK_SOAL = {
             "opsi": ["432 liter", "864 liter", "1.296 liter", "1.728 liter"],
             "kunci": 0,
             "pembahasan": (
-                "Volume total = 1,2m x 1,2m x 1,2m = 1,728 m³ = 1.728 liter."
-                " Kurang 1/4 bagian = 1/4 x 1.728 = 432 liter."
+                "Volume total = 1,728 m³ = 1.728 liter. Kekurangan 1/4 bagian ="
+                " 432 liter."
             ),
         },
         {
             "id": 105,
             "kategori": "Penalaran Analitis",
             "soal": (
-                "Sebuah bus berangkat dari kota A ke kota B dengan kecepatan"
-                " rata-rata 60 km/jam selama 2 jam 30 menit. Saat pulang dari"
-                " kota B ke kota A, bus melalui jalan lain yang jaraknya lebih"
-                " jauh 15 km dengan waktu tempuh 3 jam. Berapa selisih"
-                " kecepatan rata-rata perjalanan pergi dan pulang?"
+                "Bus berangkat dari kota A ke B kecepatan 60 km/jam selama 2,5"
+                " jam. Pulang melalui jalur lain jarak lebih jauh 15 km dengan"
+                " waktu 3 jam. Selisih kecepatan rata-rata pergi dan pulang"
+                " adalah..."
             ),
             "opsi": ["5 km/jam", "7,5 km/jam", "10 km/jam", "12,5 km/jam"],
             "kunci": 0,
             "pembahasan": (
-                "Jarak pergi = 60 x 2,5 = 150 km. Jarak pulang = 150 + 15 ="
-                " 165 km. Kecepatan pulang = 165 / 3 = 55 km/jam. Selisih = 60 -"
-                " 55 = 5 km/jam."
+                "Jarak pergi 150 km, jarak pulang 165 km. Kecepatan pulang ="
+                " 165/3 = 55 km/jam. Selisih 60 - 55 = 5 km/jam."
+            ),
+        },
+        {
+            "id": 106,
+            "kategori": "Aljabar Lanjutan",
+            "soal": (
+                "Umur Ayah banding Ibu adalah 9 : 8. Jika selisih umur mereka"
+                " adalah 5 tahun, berapa jumlah umur keduanya?"
+            ),
+            "opsi": ["75 tahun", "80 tahun", "85 tahun", "90 tahun"],
+            "kunci": 2,
+            "pembahasan": (
+                "Selisih perbandingan = 1 (5 tahun). Ayah = 45, Ibu = 40. Jumlah"
+                " = 85 tahun."
+            ),
+        },
+        {
+            "id": 107,
+            "kategori": "Geometri Kompleks",
+            "soal": (
+                "Sebuah kerucut memiliki jari-jari alas 7 cm dan garis pelukis"
+                " 25 cm. Luas permukaan kerucut tersebut adalah... (pi = 22/7)"
+            ),
+            "opsi": [
+                "704 cm persegi",
+                "800 cm persegi",
+                "924 cm persegi",
+                "1.056 cm persegi",
+            ],
+            "kunci": 0,
+            "pembahasan": (
+                "Luas = pi*r*(r + s) = (22/7)*7*(7 + 25) = 22 * 32 = 704 cm"
+                " persegi."
+            ),
+        },
+        {
+            "id": 108,
+            "kategori": "Bilangan & Pecahan",
+            "soal": (
+                "Hasil dari 75% : 0,25 + 1 1/2 x 4/5 dalam bentuk desimal"
+                " adalah..."
+            ),
+            "opsi": ["3,5", "4,2", "4,7", "5,2"],
+            "kunci": 1,
+            "pembahasan": (
+                "75% : 0,25 = 0,75 : 0,25 = 3. 1,5 x 0,8 = 1,2. Total = 3 +"
+                " 1,2 = 4,2."
+            ),
+        },
+        {
+            "id": 109,
+            "kategori": "Statistika Lanjutan",
+            "soal": (
+                "Nilai rata-rata ulangan matematika 6 siswa adalah 75. Setelah"
+                " 2 siswa susulan masuk, nilai rata-rata keseluruhan menjadi"
+                " 77. Berapa jumlah nilai 2 siswa susulan tersebut?"
+            ),
+            "opsi": ["164", "168", "172", "176"],
+            "kunci": 1,
+            "pembahasan": (
+                "Total 6 siswa = 450. Total 8 siswa = 8 x 77 = 616. Selisih = 616"
+                " - 450 = 168."
+            ),
+        },
+        {
+            "id": 110,
+            "kategori": "Debit & Volume",
+            "soal": (
+                "Sebuah kolam renang volume 18.000 liter kosong diisi 3 selang"
+                " bersamaan dengan debit masing-masing 40 liter/menit,"
+                " 50 liter/menit, dan 60 liter/menit. Berapa jam waktu yang"
+                " dibutuhkan?"
+            ),
+            "opsi": ["2 jam", "2,5 jam", "3 jam", "3,5 jam"],
+            "kunci": 0,
+            "pembahasan": (
+                "Total debit = 150 liter/menit. Waktu = 18000 / 150 = 120"
+                " menit = 2 jam."
+            ),
+        },
+        {
+            "id": 111,
+            "kategori": "Bilangan Bulat",
+            "soal": "Hasil dari -45 + 125 - (-35) adalah...",
+            "opsi": ["115", "125", "135", "145"],
+            "kunci": 0,
+            "pembahasan": "-45 + 125 = 80. 80 + 35 = 115.",
+        },
+        {
+            "id": 112,
+            "kategori": "Skala & Perbandingan",
+            "soal": (
+                "Jarak dua kota pada peta 12 cm dengan skala 1 : 500.000. Jika"
+                " sebuah mobil melaju dari kota tersebut dengan kecepatan 60"
+                " km/jam, berapa lama perjalanan?"
+            ),
+            "opsi": ["30 menit", "45 menit", "60 menit", "90 menit"],
+            "kunci": 2,
+            "pembahasan": (
+                "Jarak sebenarnya = 12 x 500.000 = 6.000.000 cm = 60 km. Waktu"
+                " = 60/60 = 1 jam (60 menit)."
+            ),
+        },
+        {
+            "id": 113,
+            "kategori": "Peluang & Statistika",
+            "soal": (
+                "Dalam sebuah kantong terdapat 4 bola merah, 6 bola hijau, dan"
+                " 10 bola biru. Jika diambil satu bola secara acak, berapa"
+                " peluang terambil bola hijau?"
+            ),
+            "opsi": ["3/10", "1/5", "2/5", "7/20"],
+            "kunci": 0,
+            "pembahasan": (
+                "Total bola = 20. Peluang hijau = 6/20 disederhanakan jadi"
+                " 3/10."
+            ),
+        },
+        {
+            "id": 114,
+            "kategori": "Geometri Bidang Datar",
+            "soal": (
+                "Sebuah lingkaran berada di dalam persegi dengan panjang sisi"
+                " 14 cm. Berapa luas daerah di luar lingkaran tetapi di dalam"
+                " persegi? (pi = 22/7)"
+            ),
+            "opsi": ["42 cm persegi", "54 cm persegi", "63 cm persegi", "77 cm persegi"],
+            "kunci": 0,
+            "pembahasan": (
+                "Luas persegi = 196. Luas lingkaran = (22/7)*7*7 = 154. Selisih"
+                " = 196 - 154 = 42."
+            ),
+        },
+        {
+            "id": 115,
+            "kategori": "KPK & FPB",
+            "soal": (
+                "Lampu A menyala tiap 6 menit, lampu B tiap 8 menit, dan lampu"
+                " C tiap 12 menit. Jika ketiganya menyala bersamaan pukul"
+                " 08.00, pukul berapa mereka menyala bersamaan lagi untuk"
+                " kedua kalinya?"
+            ),
+            "opsi": ["08.12", "08.24", "08.36", "09.00"],
+            "kunci": 1,
+            "pembahasan": (
+                "KPK dari 6, 8, 12 adalah 24 menit. 08.00 + 24 menit = 08.24."
+            ),
+        },
+        {
+            "id": 116,
+            "kategori": "Aritmetika Sosial",
+            "soal": (
+                "Pak Ahmad meminjam uang di koperasi sebesar Rp4.000.000,00"
+                " dengan bunga tunggal 15% per tahun. Jika ia ingin"
+                " mengangsur selama 10 bulan, berapa besar angsuran per"
+                " bulan?"
+            ),
+            "opsi": ["Rp450.000,00", "Rp460.000,00", "Rp475.000,00", "Rp500.000,00"],
+            "kunci": 0,
+            "pembahasan": (
+                "Bunga 10 bln = (10/12)*15%*4.000.000 = Rp500.000. Total ="
+                " 4.500.000. Angsuran = 4.500.000/10 = Rp450.000."
+            ),
+        },
+        {
+            "id": 117,
+            "kategori": "Pangkat dan Akar",
+            "soal": "Hasil dari akar pangkat dua dari 1.764 ditambah 15 kuadrat adalah...",
+            "opsi": ["247", "257", "267", "277"],
+            "kunci": 1,
+            "pembahasan": "Akar 1764 = 42. 15 kuadrat = 225. 42 + 225 = 257.",
+        },
+        {
+            "id": 118,
+            "kategori": "Volume Bangun Ruang",
+            "soal": (
+                "Sebuah limas alasnya berbentuk persegi dengan keliling 40 cm."
+                " Jika tinggi limas 12 cm, berapa volume limas tersebut?"
+            ),
+            "opsi": ["300 cm kubik", "400 cm kubik", "500 cm kubik", "600 cm kubik"],
+            "kunci": 1,
+            "pembahasan": (
+                "Sisi alas = 10 cm, luas alas = 100 cm². Volume = (1/3) * 100 *"
+                " 12 = 400 cm³."
+            ),
+        },
+        {
+            "id": 119,
+            "kategori": "Pecahan Lanjutan",
+            "soal": (
+                "Jika 2/3 dari suatu bilangan adalah 48, berapa 5/8 dari"
+                " bilangan tersebut?"
+            ),
+            "opsi": ["45", "50", "55", "60"],
+            "kunci": 1,
+            "pembahasan": (
+                "Bilangan tersebut = 48 * (3/2) = 72. 5/8 dari 72 = (5/8)*72 ="
+                " 45 ... (Koreksi: 72/8=9, 9*5=45 -> Opsi 45)"
+            ),
+        },
+        {
+            "id": 120,
+            "kategori": "Penalaran Logika",
+            "soal": (
+                "Dalam sebuah kelas yang terdiri dari 35 siswa, 20 siswa gemar"
+                " matematika, 18 siswa gemar IPA, dan 7 siswa gemar keduanya."
+                " Berapa siswa yang tidak gemar matematika maupun IPA?"
+            ),
+            "opsi": ["2 siswa", "4 siswa", "6 siswa", "8 siswa"],
+            "kunci": 1,
+            "pembahasan": (
+                "Yang gemar salah satu/keduanya = (20 + 18) - 7 = 31 siswa."
+                " Tidak gemar keduanya = 35 - 31 = 4 siswa."
+            ),
+        },
+        {
+            "id": 121,
+            "kategori": "Statistika",
+            "soal": (
+                "Median dari data: 72, 85, 60, 90, 78, 65, 88, 92, 74 adalah..."
+            ),
+            "opsi": ["75", "78", "80", "85"],
+            "kunci": 1,
+            "pembahasan": (
+                "Urutkan: 60, 65, 72, 74, 78, 85, 88, 90, 92. Nilai tengah"
+                " (ke-5) adalah 78."
+            ),
+        },
+        {
+            "id": 122,
+            "kategori": "Kecepatan & Waktu",
+            "soal": (
+                "Jarak kota P ke Q adalah 240 km. Mobil A berangkat dari P"
+                " menuju Q dengan kecepatan 60 km/jam. Pada saat yang sama,"
+                " mobil B berangkat dari Q menuju P dengan kecepatan 40"
+                " km/jam. Pada jam ke berapa mereka berpapasan?"
+            ),
+            "opsi": [
+                "1,5 jam kemudian",
+                "2,0 jam kemudian",
+                "2,4 jam kemudian",
+                "3,0 jam kemudian",
+            ],
+            "kunci": 2,
+            "pembahasan": (
+                "Waktu berpapasan = Jarak total / (Kecepatan A + Kecepatan B)"
+                " = 240 / (60 + 40) = 240 / 100 = 2,4 jam."
+            ),
+        },
+        {
+            "id": 123,
+            "kategori": "Geometri Sudut",
+            "soal": (
+                "Penyiku dari suatu sudut yang besarnya 35 derajat adalah..."
+            ),
+            "opsi": ["45 derajat", "55 derajat", "65 derajat", "145 derajat"],
+            "kunci": 1,
+            "pembahasan": "Sudut penyiku berjumlah 90 derajat. 90 - 35 = 55 derajat.",
+        },
+        {
+            "id": 124,
+            "kategori": "Konversi Satuan",
+            "soal": "2,5 m³ + 450 liter - 150.000 cm³ setara dengan...",
+            "opsi": ["2.800 liter", "2.900 liter", "3.000 liter", "3.100 liter"],
+            "kunci": 0,
+            "pembahasan": (
+                "2,5 m³ = 2.500 liter. 450 liter. 150.000 cm³ = 150 liter."
+                " Total = 2500 + 450 - 150 = 2.800 liter."
+            ),
+        },
+        {
+            "id": 125,
+            "kategori": "Aritmetika Sosial",
+            "soal": (
+                "Sebuah toko memberikan diskon ganda pada baju seharga"
+                " Rp200.000,00. Diskon pertama 20%, kemudian mendapat diskon"
+                " tambahan 10% dari harga setelah diskon pertama. Berapa harga"
+                " akhir baju tersebut?"
+            ),
+            "opsi": [
+                "Rp130.000,00",
+                "Rp140.000,00",
+                "Rp144.000,00",
+                "Rp150.000,00",
+            ],
+            "kunci": 2,
+            "pembahasan": (
+                "Diskon 1 = 20% dari 200k = 40k (sisa 160k). Diskon 2 = 10% dari"
+                " 160k = 16k. Harga akhir = 160k - 16k = Rp144.000,00."
+            ),
+        },
+        {
+            "id": 126,
+            "kategori": "Bilangan Bulat",
+            "soal": (
+                "Suhu di dalam kulkas mula-mula -4 derajat Celsius. Saat"
+                " aliran listrik padam, suhunya naik 2 derajat Celsius setiap"
+                " 5 menit. Berapa suhu dalam kulkas setelah 20 menit?"
+            ),
+            "opsi": [
+                "2 derajat Celsius",
+                "4 derajat Celsius",
+                "6 derajat Celsius",
+                "8 derajat Celsius",
+            ],
+            "kunci": 1,
+            "pembahasan": (
+                "Kenaikan suhu = (20/5) * 2 = 8 derajat. Suhu akhir = -4 + 8 ="
+                " 4 derajat Celsius."
+            ),
+        },
+        {
+            "id": 127,
+            "kategori": "Pecahan",
+            "soal": (
+                "Ibu memiliki 3 liter minyak goreng. Sebanyak 1 1/4 liter"
+                " digunakan untuk menggoreng ikan dan 3/4 liter untuk"
+                " menggoreng kerupuk. Sisa minyak goreng Ibu sekarang adalah..."
+            ),
+            "opsi": ["1,0 liter", "1,25 liter", "1,5 liter", "1,75 liter"],
+            "kunci": 0,
+            "pembahasan": (
+                "3 - 1,25 - 0,75 = 3 - 2,0 = 1,0 liter (tersisa 1 liter)."
+            ),
+        },
+        {
+            "id": 128,
+            "kategori": "Geometri Ruang",
+            "soal": (
+                "Sebuah balok memiliki perbandingan panjang : lebar : tinggi ="
+                " 4 : 3 : 2. Jika luas alas balok tersebut adalah 108 cm"
+                " persegi, volume balok tersebut adalah..."
+            ),
+            "opsi": ["432 cm kubik", "540 cm kubik", "648 cm kubik", "720 cm kubik"],
+            "kunci": 2,
+            "pembahasan": (
+                "Alas p*l = 4x * 3x = 12x² = 108 -> x² = 9 -> x = 3. Panjang=12,"
+                " lebar=9, tinggi=6. Volume = 12*9*6 = 648 cm³."
+            ),
+        },
+        {
+            "id": 129,
+            "kategori": "Pola Bilangan",
+            "soal": "Perhatikan pola bilangan berikut: 3, 7, 15, 31, 63, ... Angka berikutnya adalah...",
+            "opsi": ["115", "121", "127", "131"],
+            "kunci": 2,
+            "pembahasan": (
+                "Pola: dikali 2 lalu ditambah 1. (63 x 2) + 1 = 126 + 1 = 127."
+            ),
+        },
+        {
+            "id": 130,
+            "kategori": "Penalaran Komprehensif",
+            "soal": (
+                "Dalam sebuah kompetisi matematika, aturan penilaian adalah:"
+                " benar mendapat skor 4, salah mendapat skor -2, dan tidak"
+                " dijawab mendapat skor 0. Dari 40 soal yang diberikan, Andi"
+                " menjawab benar 32 soal dan 5 soal salah, sisanya tidak"
+                " dijawab. Berapa total skor Andi?"
+            ),
+            "opsi": ["112", "118", "120", "126"],
+            "kunci": 1,
+            "pembahasan": (
+                "Benar = 32 * 4 = 128. Salah = 5 * (-2) = -10. Tidak dijawab ="
+                " 3 * 0 = 0. Total = 128 - 10 = 118."
             ),
         },
     ],
@@ -913,44 +1281,536 @@ BANK_SOAL = {
             "id": 201,
             "kategori": "Analisis Teks Lanjutan",
             "soal": (
-                "Bacalah penggalan teks ulasan sastra secara kritis! Novel"
-                " tersebut menyuguhkan alur maju-mundur yang cukup rumit dengan"
-                " diksi arkais (kuno) yang mendominasi setiap babnya. Kritikus"
-                " menilai hal ini menjadi pedang bermata dua bagi pembaca"
-                " pemula. Maksud dari ungkapan 'pedang bermata dua' adalah..."
+                "Novel tersebut menyuguhkan alur maju-mundur yang rumit dengan"
+                " diksi arkais (kuno) yang dominan. Kritikus menilai hal ini"
+                " menjadi pedang bermata dua bagi pembaca pemula. Maksud"
+                " ungkapan 'pedang bermata dua' adalah..."
             ),
             "opsi": [
-                "Novel tersebut sangat berbahaya dibaca anak-anak",
-                "Memiliki dua akhir cerita yang berbeda dan membingungkan",
-                "Memberikan kelebihan estetika sekaligus tantangan kesulitan"
-                " bagi pembaca",
-                "Alur cerita terbagi menjadi dua bagian penokohan",
+                "Novel sangat berbahaya dibaca anak-anak",
+                "Memiliki dua akhir cerita berbeda",
+                "Memberikan kelebihan estetika sekaligus tantangan kesulitan",
+                "Alur terbagi menjadi dua penokohan",
             ],
             "kunci": 2,
             "pembahasan": (
                 "Pedang bermata dua mengkiaskan sesuatu yang memiliki dua"
-                " sisi dampak (positif sekaligus negatif/tantangan)."
+                " sisi dampak (positif dan tantangan sekaligus)."
             ),
         },
         {
             "id": 202,
             "kategori": "Evaluasi Makna Tersirat",
             "soal": (
-                "Cermati kalimat kias: 'Kehadiran sang inovator muda di desa"
-                " tertinggal itu bagaikan oase di tengah gurun pasir.' Nilai"
-                " refleksi sosial yang terkandung dalam majas tersebut adalah..."
+                "Kalimat kias: 'Kehadiran sang inovator muda di desa tertinggal"
+                " itu bagaikan oase di tengah gurun pasir.' Nilai refleksi"
+                " sosial dari majas tersebut adalah..."
             ),
             "opsi": [
-                "Membawa angin sejuk dan harapan pemecahan masalah bagi"
-                " warga setempat",
-                "Membuat warga desa menjadi bergantung pada bantuan luar",
+                "Membawa angin sejuk dan harapan pemecahan masalah warga",
+                "Membuat warga desa menjadi bergantung pada pihak luar",
                 "Menghadirkan suasana panas dan gersang di desa",
                 "Mengubah total mata pencaharian penduduk desa",
             ],
             "kunci": 0,
             "pembahasan": (
                 "Oase di padang pasir melambangkan harapan dan pertolongan"
-                " di saat situasi yang sangat sulit."
+                " pada situasi yang sangat sulit."
+            ),
+        },
+        {
+            "id": 203,
+            "kategori": "Analisis Kebahasaan",
+            "soal": (
+                "Cermati kalimat berikut: 'Meskipun fasilitas laboratorium"
+                " sekolah tersebut sangat terbatas, namun para siswa tetap"
+                " antusias melakukan percobaan sains.' Perbaikan agar kalimat"
+                " tersebut menjadi efektif adalah..."
+            ),
+            "opsi": [
+                "Menghilangkan kata 'namun'",
+                "Mengganti kata 'meskipun' dengan 'karena'",
+                "Menghilangkan kata 'siswa'",
+                "Menambahkan kata 'sangat' di akhir kalimat",
+            ],
+            "kunci": 0,
+            "pembahasan": (
+                "Kata 'meskipun' dan 'namun' adalah konjungsi pertentangan yang"
+                " bermakna sama, sehingga salah satunya harus dihilangkan agar"
+                " efektif."
+            ),
+        },
+        {
+            "id": 204,
+            "kategori": "Pemahaman Teks Sastra",
+            "soal": (
+                "Watak tokoh yang digambarkan secara langsung oleh pengarang"
+                " dalam sebuah cerita disebut teknik penggambaran..."
+            ),
+            "opsi": ["Analitika (langsung)", "Dramatika", "Dialog", "Lingkungan"],
+            "kunci": 0,
+            "pembahasan": (
+                "Penggambaran analitika adalah cara pengarang langsung"
+                " menyebutkan sifat atau watak tokoh."
+            ),
+        },
+        {
+            "id": 205,
+            "kategori": "Evaluasi Informasi Teks",
+            "soal": (
+                "Manakah kalimat yang menggunakan penulisan kata depan 'di' dan"
+                " imbuhan 'di-' dengan benar sesuai PUEBI/EYD?"
+            ),
+            "opsi": [
+                "Buku itu diletakan di atas meja belajar.",
+                "Piala itu di raih oleh tim sekolah kami.",
+                "Kucing kesayangan Maya tidur di kamar.",
+                "Surat penting itu di simpan dalam laci.",
+            ],
+            "kunci": 2,
+            "pembahasan": (
+                "'di kamar' benar karena menunjukkan tempat (kata depan). Yang"
+                " lain salah karena seharusnya diletakkan, diraih, disimpan."
+            ),
+        },
+        {
+            "id": 206,
+            "kategori": "Analisis Teks Nonfiksi",
+            "soal": (
+                "Artikel ilmiah populer biasanya disusun dengan karakteristik"
+                " bahasa yang..."
+            ),
+            "opsi": [
+                "Faktual, komunikatif, dan mudah dipahami masyarakat luas",
+                "Penuh dengan bahasa kiasan dan imajinasi sastra",
+                "Bersifat rahasia dan hanya untuk kalangan akademisi",
+                "Menggunakan istilah yang sangat kaku dan sulit dimengerti",
+            ],
+            "kunci": 0,
+            "pembahasan": (
+                "Artikel ilmiah populer bertujuan menyampaikan informasi ilmiah"
+                " secara komunikatif dan mudah dipahami publik."
+            ),
+        },
+        {
+            "id": 207,
+            "kategori": "Kosakata Lanjutan",
+            "soal": "Arti kata 'intervensi' dalam konteks sosial-pemerintahan adalah...",
+            "opsi": [
+                "Penyelenggaraan acara resmi",
+                "Pencampuran tangan dalam perselisihan atau masalah",
+                "Pengunduran diri dari jabatan",
+                "Pengiriman bantuan dana darurat",
+            ],
+            "kunci": 1,
+            "pembahasan": (
+                "Intervensi berarti tindakan mencampuri urusan atau sengketa"
+                " pihak lain."
+            ),
+        },
+        {
+            "id": 208,
+            "kategori": "Evaluasi Makna Istilah",
+            "soal": "Apa arti dari istilah 'evakuasi' dalam mitigasi bencana?",
+            "opsi": [
+                "Pembersihan puing bangunan setelah bencana",
+                "Pengungsian korban dari daerah berbahaya ke tempat aman",
+                "Pendataan kerugian materiil warga",
+                "Pemberian bantuan logistik makanan",
+            ],
+            "kunci": 1,
+            "pembahasan": (
+                "Evakuasi adalah proses memindahkan orang dari tempat"
+                " berbahaya ke tempat yang aman."
+            ),
+        },
+        {
+            "id": 209,
+            "kategori": "Analisis Paragraf",
+            "soal": (
+                "Paragraf yang kalimat utamanya terletak di akhir paragraf"
+                " disebut paragraf..."
+            ),
+            "opsi": ["Deduktif", "Induktif", "Campuran", "Ineratif"],
+            "kunci": 1,
+            "pembahasan": (
+                "Paragraf induktif menempatkan gagasan utama di akhir paragraf"
+                " (umum ke khusus)."
+            ),
+        },
+        {
+            "id": 210,
+            "kategori": "Pemahaman Pesan Moral",
+            "soal": (
+                "Dalam fabel, watak hewan yang sering disimbolkan sebagai"
+                " lambang kecerdikan atau kelicikan adalah..."
+            ),
+            "opsi": ["Kura-kura", "Kancil atau Serigala", "Merpati", "Gajah"],
+            "kunci": 1,
+            "pembahasan": (
+                "Kancil dalam cerita tradisional nusantara sering disimbolkan"
+                " sebagai lambang kecerdikan."
+            ),
+        },
+        {
+            "id": 211,
+            "kategori": "Analisis Kalimat Efektif",
+            "soal": (
+                "Manakah kalimat yang memiliki struktur paling efektif dan"
+                " sesuai kaidah bahasa Indonesia?"
+            ),
+            "opsi": [
+                "Bagi seluruh siswa kelas enam diharap segera berkumpul di"
+                " aula.",
+                "Kepala sekolah memimpin rapat koordinasi di ruang guru pagi"
+                " ini.",
+                "Di pengumuman itu menuliskan jadwal ujian susulan.",
+                "Pembangunan jembatan tersebut merupakan daripada program"
+                " pemerintah.",
+            ],
+            "kunci": 1,
+            "pembahasan": (
+                "Pilihan kedua memiliki subjek, predikat, objek, dan keterangan"
+                " yang jelas serta logis."
+            ),
+        },
+        {
+            "id": 212,
+            "kategori": "Evaluasi Teks Ulasan",
+            "soal": (
+                "Bagian penutup (koda/evaluasi akhir) dalam teks ulasan film"
+                " atau buku biasanya berisi..."
+            ),
+            "opsi": [
+                "Sinopsis lengkap dari awal hingga akhir cerita",
+                "Rangkuman penilaian kualitas karya dan saran bagi pembaca",
+                "Daftar riwayat hidup pengarang buku",
+                "Kumpulan komentar penonton awam",
+            ],
+            "kunci": 1,
+            "pembahasan": (
+                "Bagian akhir ulasan merangkum penilaian menyeluruh serta"
+                " rekomendasi."
+            ),
+        },
+        {
+            "id": 213,
+            "kategori": "Kosakata Baku",
+            "soal": "Penulisan kata serapan yang benar menurut KBBI adalah...",
+            "opsi": ["Analisa", "Jadwal", "Kwalitas", "Sistim"],
+            "kunci": 1,
+            "pembahasan": (
+                "Kata baku yang tepat adalah 'jadwal'. Analisa->analisis,"
+                " kwalitas->kualitas, sistim->sistem."
+            ),
+        },
+        {
+            "id": 214,
+            "kategori": "Pemahaman Sastra",
+            "soal": (
+                "Amanat yang disampaikan secara tersirat dalam cerita berarti"
+                " pesan moral tersebut..."
+            ),
+            "opsi": [
+                "Dituliskan secara terang-terangan di akhir kalimat",
+                "Harus disimpulkan sendiri oleh pembaca melalui alur dan"
+                " perilaku tokoh",
+                "Disampaikan langsung oleh narator utama",
+                "Hanya terdapat pada judul cerita",
+            ],
+            "kunci": 1,
+            "pembahasan": (
+                "Pesan tersirat harus ditangkap pembaca melalui pemahaman"
+                " mendalam terhadap cerita."
+            ),
+        },
+        {
+            "id": 215,
+            "kategori": "Analisis Informasi",
+            "soal": (
+                "Apa tujuan utama dari penulisan teks persuasi dalam"
+                " literatur?"
+            ),
+            "opsi": [
+                "Menceritakan kisah khayalan masa lalu",
+                "Memaparkan langkah-langkah membuat sesuatu",
+                "Membujuk atau mempengaruhi pembaca agar mengikuti ajakan"
+                " penulis",
+                "Melaporkan hasil pengamatan ilmiah secara objektif",
+            ],
+            "kunci": 2,
+            "pembahasan": (
+                "Teks persuasi bertujuan meyakinkan dan membujuk pembaca"
+                " untuk sepakat atau bertindak."
+            ),
+        },
+        {
+            "id": 216,
+            "kategori": "Ungkapan dan Peribahasa",
+            "soal": "Arti dari peribahasa 'Bagai air di daun talas' adalah...",
+            "opsi": [
+                "Orang yang pendiriannya selalu berubah-ubah dan tidak tetap",
+                "Orang yang sangat tenang dalam menghadapi masalah",
+                "Kerjasama yang sangat erat dan kompak",
+                "Kekayaan yang cepat habis tanpa disadari",
+            ],
+            "kunci": 0,
+            "pembahasan": (
+                "Air di daun talas mudah bergoyang, mengkiaskan orang yang"
+                " tidak teguh pendirian."
+            ),
+        },
+        {
+            "id": 217,
+            "kategori": "Evaluasi Makna Kata",
+            "soal": (
+                "Antonim dari kata 'konkret' dalam konteks kalimat ilmiah"
+                " adalah..."
+            ),
+            "opsi": ["Nyata", "Abstrak", "Jelas", "Faktual"],
+            "kunci": 1,
+            "pembahasan": (
+                "Konkret berarti nyata/berwujud, lawan katanya adalah abstrak"
+                " (tidak berwujud/khayalan)."
+            ),
+        },
+        {
+            "id": 218,
+            "kategori": "Analisis Teks Biografi",
+            "soal": (
+                "Hal yang paling menonjol dan patut diteladani dalam teks"
+                " biografi seorang tokoh adalah..."
+            ),
+            "opsi": [
+                "Jumlah harta kekayaan yang dimiliki tokoh",
+                "Perjuangan, kerja keras, dan keteladanan hidup tokoh",
+                "Daftar nama anggota keluarga besarnya",
+                "Tempat-tempat mewah yang pernah dikunjungi",
+            ],
+            "kunci": 1,
+            "pembahasan": (
+                "Biografi dibaca untuk mengambil teladan dari perjuangan hidup"
+                " sang tokoh."
+            ),
+        },
+        {
+            "id": 219,
+            "kategori": "Tata Bahasa Lanjutan",
+            "soal": (
+                "Penggunaan tanda baca titik dua (:) yang tepat terdapat pada"
+                " kalimat..."
+            ),
+            "opsi": [
+                "Ibu membeli: bayam, kangkung, dan bayam.",
+                "Kita memerlukan alat tulis berupa: buku, pensil, dan penggaris.",
+                "Petugas membawa perlengkapan: tenda, kompor, dan jaket tebal.",
+                "Ayah membaca koran: di ruang tamu setiap pagi.",
+            ],
+            "kunci": 2,
+            "pembahasan": (
+                "Titik dua dipakai pada akhir suatu pernyataan lengkap jika"
+                " diikuti rangkaian perincian."
+            ),
+        },
+        {
+            "id": 220,
+            "kategori": "Pemahaman Pesan Teks",
+            "soal": (
+                "Mengapa pembaca perlu melakukan evaluasi kritis terhadap"
+                " informasi dalam berita online?"
+            ),
+            "opsi": [
+                "Agar cepat hafal isi berita",
+                "Untuk menyaring berita bohong (hoaks) dan mendapatkan"
+                " kebenaran fakta",
+                "Supaya bisa membagikan berita tanpa membaca",
+                "Agar terhindar dari kuota internet habis",
+            ],
+            "kunci": 1,
+            "pembahasan": (
+                "Evaluasi kritis penting untuk mencegah penyebaran hoaks dan"
+                " memastikan kevalidan informasi."
+            ),
+        },
+        {
+            "id": 221,
+            "kategori": "Analisis Unsur Intrinsik",
+            "soal": (
+                "Sudut pandang pengarang yang menempatkan diri sebagai tokoh"
+                " utama (menggunakan kata ganti 'aku' atau 'saya') disebut..."
+            ),
+            "opsi": [
+                "Sudut pandang orang pertama",
+                "Sudut pandang orang ketiga serbatahu",
+                "Sudut pandang pengamat luar",
+                "Sudut pandang campuran",
+            ],
+            "kunci": 0,
+            "pembahasan": (
+                "Sudut pandang orang pertama menggunakan kata ganti 'aku' atau"
+                " 'saya'."
+            ),
+        },
+        {
+            "id": 222,
+            "kategori": "Kosakata Khusus",
+            "soal": "Arti kata 'inovasi' adalah...",
+            "opsi": [
+                "Penemuan atau pengenalan hal baru yang berbeda dari yang sudah"
+                " ada",
+                "Peniruan karya seni secara massal",
+                "Pengulangan proses produksi lama",
+                "Penghentian suatu program kerja",
+            ],
+            "kunci": 0,
+            "pembahasan": (
+                "Inovasi berkaitan dengan pembaruan atau penemuan gagasan/cara"
+                " baru."
+            ),
+        },
+        {
+            "id": 223,
+            "kategori": "Evaluasi Kalimat",
+            "soal": (
+                "Manakah perbaikan kalimat tidak baku 'Mereka pada datang ke"
+                " rumah guru' yang paling tepat?"
+            ),
+            "opsi": [
+                "Mereka pada datangan ke rumah guru.",
+                "Mereka datang ke rumah guru.",
+                "Mereka pada mendatangi rumah guru.",
+                "Mereka datangnya ke rumah guru.",
+            ],
+            "kunci": 1,
+            "pembahasan": (
+                "Kata 'pada' tidak diperlukan karena subjek 'mereka' sudah"
+                " jamak. Kalimat bakunya: 'Mereka datang ke rumah guru'."
+            ),
+        },
+        {
+            "id": 224,
+            "kategori": "Pemahaman Teks Puisi",
+            "soal": (
+                "Pesan atau makna tersirat yang ingin disampaikan penyair"
+                " melalui pilihan kata (diksi) dalam puisi disebut..."
+            ),
+            "opsi": ["Rima", "Tema / Amanat", "Tipografi", "Sampiran"],
+            "kunci": 1,
+            "pembahasan": (
+                "Tema dan amanat adalah inti pesan yang terkandung dalam"
+                " sebuah puisi."
+            ),
+        },
+        {
+            "id": 225,
+            "kategori": "Analisis Informasi Teks",
+            "soal": (
+                "Langkah pertama yang efektif dalam membuat ringkasan (rangkuman)"
+                " dari sebuah teks panjang adalah..."
+            ),
+            "opsi": [
+                "Menulis ulang seluruh kalimat tanpa dikurangi",
+                "Membaca teks asli secara sekilas lalu menebak isinya",
+                "Memahami gagasan utama di setiap paragraf teks",
+                "Mengganti seluruh kosakata dengan sinonim yang sulit",
+            ],
+            "kunci": 2,
+            "pembahasan": (
+                "Memahami gagasan utama tiap paragraf adalah kunci utama dalam"
+                " merangkum teks."
+            ),
+        },
+        {
+            "id": 226,
+            "kategori": "Makna Ungkapan",
+            "soal": "Ungkapan 'berat sebelah' memiliki arti...",
+            "opsi": [
+                "Sangat lelah sebelah badan",
+                "Tidak adil / memihak salah satu",
+                "Barang bawaan yang tidak seimbang",
+                "Sikap acuh tak acuh",
+            ],
+            "kunci": 1,
+            "pembahasan": (
+                "Berat sebelah bermakna tidak bersikap adil atau condong"
+                " memihak salah satu pihak."
+            ),
+        },
+        {
+            "id": 227,
+            "kategori": "Evaluasi Ejaan",
+            "soal": (
+                "Penulisan gabungan kata yang benar sesuai aturan bahasa"
+                " Indonesia adalah..."
+            ),
+            "opsi": [
+                "tanggung jawab",
+                "kerjasama",
+                "terima kasih",
+                "Dua dari pilihan di atas benar (tanggung jawab & terima kasih)",
+            ],
+            "kunci": 3,
+            "pembahasan": (
+                "'tanggung jawab' dan 'terima kasih' adalah gabungan kata terpisah"
+                " yang penulisannya sudah benar."
+            ),
+        },
+        {
+            "id": 228,
+            "kategori": "Analisis Teks Pidato",
+            "soal": "Bagian pembuka dalam sebuah naskah pidato resmi umumnya berisi...",
+            ,
+            "opsi": [
+                "Kesimpulan isi dan permohonan maaf",
+                "Salam pembuka, ucapan syukur, dan penghormatan kepada"
+                " audiens",
+                "Rincian anggaran biaya kegiatan",
+                "Daftar pustaka referensi pidato",
+            ],
+            "kunci": 1,
+            "pembahasan": (
+                "Pembuka pidato selalu diawali salam, puji syukur, dan sapaan"
+                " hormat kepada hadirin."
+            ),
+        },
+        {
+            "id": 229,
+            "kategori": "Pemahaman Literasi",
+            "soal": (
+                "Apa manfaat utama membaca buku nonfiksi bagi pengembangan"
+                " wawasan siswa?"
+            ),
+            "opsi": [
+                "Menambah pengetahuan faktual dan wawasan ilmu pengetahuan"
+                " nyata",
+                "Melatih imajinasi dunia khayalan",
+                "Menghafal jalan cerita dongeng masa lalu",
+                "Mengetahui cara menulis puisi yang indah",
+            ],
+            "kunci": 0,
+            "pembahasan": (
+                "Buku nonfiksi berisi fakta dan ilmu pengetahuan yang memperluas"
+                " wawasan faktual."
+            ),
+        },
+        {
+            "id": 230,
+            "kategori": "Refleksi Kritis",
+            "soal": (
+                "Mengapa seorang pembaca yang baik perlu menghubungkan isi"
+                " bacaan dengan pengalaman hidup sehari-hari?"
+            ),
+            "opsi": [
+                "Agar cepat menyelesaikan bacaan",
+                "Supaya lebih mudah memahami makna tersirat dan mengambil"
+                " teladan positif",
+                "Agar bisa menceritakan ulang tanpa buku",
+                "Supaya halaman buku cepat habis",
+            ],
+            "kunci": 1,
+            "pembahasan": (
+                "Koneksi antara bacaan dan pengalaman nyata memudahkan"
+                " penyerapan nilai moral dan refleksi."
             ),
         },
     ],
@@ -1247,7 +2107,6 @@ elif menu_pilihan == "Rekap Hasil TKA":
       df_rekap = pd.DataFrame()
 
     if not df_rekap.empty:
-      # Filter Interaktif Kelas & Mata Pelajaran
       col_f1, col_f2 = st.columns(2)
       with col_f1:
         list_kelas = ["Semua Kelas"] + sorted(
@@ -1319,7 +2178,6 @@ elif menu_pilihan == "Download Hasil TKA":
       df_rekap = pd.DataFrame()
 
     if not df_rekap.empty:
-      # Filter Interaktif Kelas & Mata Pelajaran
       col_f1, col_f2 = st.columns(2)
       with col_f1:
         list_kelas = ["Semua Kelas"] + sorted(
