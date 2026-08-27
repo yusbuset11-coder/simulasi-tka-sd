@@ -1214,7 +1214,10 @@ elif menu_pilihan == "Rekap Hasil TKA":
 
   if os.path.exists(FILE_REKAP):
     df_rekap = pd.read_excel(FILE_REKAP)
-    st.dataframe(df_rekap, use_container_width=True)
+    # Membuat kolom nomor urut mulai dari 1
+    df_rekap.insert(0, "No.", range(1, len(df_rekap) + 1))
+    # Menampilkan tabel dengan menyembunyikan indeks bawaan (0, 1, dst)
+    st.dataframe(df_rekap, use_container_width=True, hide_index=True)
     st.info(f"Total peserta tersimpan: {len(df_rekap)} data ujian.")
   else:
     st.warning(
