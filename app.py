@@ -544,7 +544,6 @@ BANK_SOAL = {
                 " 55 = 5 km/jam."
             ),
         },
-        # (Sisa soal Paket 2 Matematika dapat disesuaikan dengan tingkat kesulitan tinggi/HOTS hingga 30 soal)
     ],
     "Bahasa Indonesia & Literasi (Paket 1 - Standar)": [
         {
@@ -937,7 +936,6 @@ BANK_SOAL = {
                 " di saat situasi yang sangat sulit."
             ),
         },
-        # (Sisa soal Paket 2 Bahasa Indonesia dapat dikembangkan sesuai kebutuhan tingkat lanjut)
     ],
 }
 
@@ -997,12 +995,11 @@ if menu_pilihan == "Simulasi Ujian":
           "Tanggal Simulasi", value=pd.Timestamp.today()
       )
       nama_siswa = st.text_input("Nama Lengkap Siswa")
-      kelas_siswa = st.selectbox("Kelas", ["VI-a", "VI-b", "VI-c"])
+      kelas_siswa = st.selectbox("Kelas", ["VI-a", "VI-b", "VI-c", "VI-d", "V-a", "V-b"])
       sekolah_siswa = st.text_input(
           "Asal Sekolah / Madrasah", value="SDN Sambikerep II Surabaya"
       )
 
-      # Dropdown Pilihan Paket Ujian sesuai Pusmendik Style
       pilih_mapel = st.selectbox(
           "Pilih Mata Pelajaran & Paket TKA",
           [
@@ -1077,7 +1074,6 @@ if menu_pilihan == "Simulasi Ujian":
     components.html(timer_html, height=60)
     st.markdown("---")
 
-    # Ambil soal sesuai pilihan paket di session state, fallback ke paket 1 jika key belum ada
     soal_list = BANK_SOAL.get(mapel, BANK_SOAL["Matematika & Numerasi (Paket 1 - Standar)"])
     jawaban_sementara = {}
 
@@ -1214,11 +1210,35 @@ elif menu_pilihan == "Rekap Hasil TKA":
 
   if os.path.exists(FILE_REKAP):
     df_rekap = pd.read_excel(FILE_REKAP)
-    # Membuat kolom nomor urut mulai dari 1
-    df_rekap.insert(0, "No.", range(1, len(df_rekap) + 1))
-    # Menampilkan tabel dengan menyembunyikan indeks bawaan (0, 1, dst)
-    st.dataframe(df_rekap, use_container_width=True, hide_index=True)
-    st.info(f"Total peserta tersimpan: {len(df_rekap)} data ujian.")
+
+    # Filter Interaktif Kelas & Mata Pelajaran
+    col_f1, col_f2 = st.columns(2)
+    with col_f1:
+      list_kelas = ["Semua Kelas"] + sorted(
+          df_rekap["Kelas"].astype(str).unique().tolist()
+      )
+      pilih_kelas = st.selectbox("🔍 Filter Berdasarkan Kelas", list_kelas)
+    with col_f2:
+      list_mapel = ["Semua Mata Pelajaran"] + sorted(
+          df_rekap["Mata Ujian & Paket"].astype(str).unique().tolist()
+      )
+      pilih_mapel = st.selectbox(
+          "🔍 Filter Berdasarkan Mata Pelajaran", list_mapel
+      )
+
+    df_filtered = df_rekap.copy()
+    if pilih_kelas != "Semua Kelas":
+      df_filtered = df_filtered[df_filtered["Kelas"] == pilih_kelas]
+    if pilih_mapel != "Semua Mata Pelajaran":
+      df_filtered = df_filtered[df_filtered["Mata Ujian & Paket"] == pilih_mapel]
+
+    df_filtered.insert(0, "No.", range(1, len(df_filtered) + 1))
+
+    if not df_filtered.empty:
+      st.dataframe(df_filtered, use_container_width=True, hide_index=True)
+      st.info(f"Total data sesuai filter: {len(df_filtered)} data ujian.")
+    else:
+      st.warning("Tidak ada data yang sesuai dengan filter yang dipilih.")
   else:
     st.warning(
         "Belum ada data rekap hasil ujian yang tersimpan. Silakan selesaikan"
@@ -1238,27 +1258,50 @@ elif menu_pilihan == "Download Hasil TKA":
   st.markdown("---")
 
   if os.path.exists(FILE_REKAP):
-    df_download = pd.read_excel(FILE_REKAP)
-    
-    # Menambahkan kolom "No." mulai dari angka 1
-    df_download.insert(0, "No.", range(1, len(df_download) + 1))
-    
-    # Tambahkan hide_index=True agar indeks 0, 1 bawaan hilang
-    st.dataframe(df_download, use_container_width=True, hide_index=True)
+    df_rekap = pd.read_excel(FILE_REKAP)
 
-    output = io.BytesIO()
-    with pd.ExcelWriter(output, engine="openpyxl") as writer:
-      df_download.to_excel(writer, index=False, sheet_name="Rekap TKA")
-    excel_data = output.getvalue()
+    # Filter Interaktif Kelas & Mata Pelajaran
+    col_f1, col_f2 = st.columns(2)
+    with col_f1:
+      list_kelas = ["Semua Kelas"] + sorted(
+          df_rekap["Kelas"].astype(str).unique().tolist()
+      )
+      pilih_kelas = st.selectbox("🔍 Filter Berdasarkan Kelas", list_kelas)
+    with col_f2:
+      list_mapel = ["Semua Mata Pelajaran"] + sorted(
+          df_rekap["Mata Ujian & Paket"].astype(str).unique().tolist()
+      )
+      pilih_mapel = st.selectbox(
+          "🔍 Filter Berdasarkan Mata Pelajaran", list_mapel
+      )
 
-    st.download_button(
-        label="📥 Download Data Rekap (Excel .xlsx)",
-        data=excel_data,
-        file_name="rekap_hasil_tka_sdn_sambikerep_2.xlsx",
-        mime=(
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        ),
-        use_container_width=True,
-    )
+    df_filtered = df_rekap.copy()
+    if pilih_kelas != "Semua Kelas":
+      df_filtered = df_filtered[df_filtered["Kelas"] == pilih_kelas]
+    if pilih_mapel != "Semua Mata Pelajaran":
+      df_filtered = df_filtered[df_filtered["Mata Ujian & Paket"] == pilih_mapel]
+
+    df_display = df_filtered.copy()
+    df_display.insert(0, "No.", range(1, len(df_display) + 1))
+
+    if not df_display.empty:
+      st.dataframe(df_display, use_container_width=True, hide_index=True)
+
+      output = io.BytesIO()
+      with pd.ExcelWriter(output, engine="openpyxl") as writer:
+        df_filtered.to_excel(writer, index=False, sheet_name="Rekap TKA")
+      excel_data = output.getvalue()
+
+      st.download_button(
+          label="📥 Download Data Rekap Terfilter (Excel .xlsx)",
+          data=excel_data,
+          file_name="rekap_hasil_tka_sdn_sambikerep_2.xlsx",
+          mime=(
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          ),
+          use_container_width=True,
+      )
+    else:
+      st.warning("Tidak ada data yang dapat diunduh sesuai filter terpilih.")
   else:
     st.warning("Belum ada file rekap data yang tersedia untuk diunduh.")
