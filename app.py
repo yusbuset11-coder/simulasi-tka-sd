@@ -1239,6 +1239,10 @@ elif menu_pilihan == "Download Hasil TKA":
 
   if os.path.exists(FILE_REKAP):
     df_download = pd.read_excel(FILE_REKAP)
+    
+    # Menambahkan kolom "No." agar konsisten mulai dari angka 1 dengan header
+    df_download.insert(0, "No.", range(1, len(df_download) + 1))
+    
     st.dataframe(df_download, use_container_width=True)
 
     output = io.BytesIO()
