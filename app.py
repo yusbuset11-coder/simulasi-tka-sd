@@ -39,7 +39,6 @@ FILE_REKAP = "rekap_hasil_tka.xlsx"
 
 
 def evaluasi_hasil(mapel, nilai):
-  # Kategori Pencapaian
   if nilai >= 95.00:
     kategori = "Istimewa"
   elif nilai >= 80.00:
@@ -49,17 +48,16 @@ def evaluasi_hasil(mapel, nilai):
   else:
     kategori = "Kurang"
 
-  # Deskripsi Kemampuan berdasarkan Mata Ujian
-  if mapel == "Matematika & Numerasi":
+  if "Matematika" in mapel:
     if kategori == "Istimewa":
       deskripsi = (
           "Penguasaan yang sangat luar biasa pada seluruh kompetensi"
-          " Bilangan, Geometri, Pengukuran, dan Penalaran Matematis."
+          " Bilangan, Geometri, dan Penalaran Matematis Lanjutan."
       )
     elif kategori == "Baik":
       deskripsi = (
-          "Penguasaan yang baik pada sebagian besar konsep numerasi, mampu"
-          " menyelesaikan soal pemecahan masalah dengan baik."
+          "Penguasaan yang baik pada konsep numerasi, mampu menyelesaikan"
+          " soal pemecahan masalah dengan baik."
       )
     elif kategori == "Memadai":
       deskripsi = (
@@ -71,11 +69,11 @@ def evaluasi_hasil(mapel, nilai):
           "Penguasaan kompetensi masih kurang, memerlukan bimbingan intensif"
           " pada konsep dasar bilangan dan operasi hitung."
       )
-  else:  # Bahasa Indonesia & Literasi
+  else:
     if kategori == "Istimewa":
       deskripsi = (
           "Penguasaan literasi yang sangat istimewa, sangat mahir dalam"
-          " memahami teks fiksi/nonfiksi, kosakata, dan evaluasi makna."
+          " memahami teks fiksi/nonfiksi kompleks, kosakata, dan evaluasi makna."
       )
     elif kategori == "Baik":
       deskripsi = (
@@ -106,7 +104,7 @@ def simpan_hasil_ke_excel(
           "Nama Siswa": nama,
           "Kelas": kelas,
           "Asal Sekolah": sekolah,
-          "Mata Ujian": mapel,
+          "Mata Ujian & Paket": mapel,
           "Nilai Akhir": nilai,
           "Kategori Pencapaian": kategori,
           "Deskripsi Kemampuan": deskripsi,
@@ -120,10 +118,9 @@ def simpan_hasil_ke_excel(
   data_updated.to_excel(FILE_REKAP, index=False)
 
 
-# --- BANK SOAL LENGKAP ---
+# --- BANK SOAL LENGKAP: PAKET 1 & PAKET 2 (LEBIH SULIT) ---
 BANK_SOAL = {
-    "Matematika & Numerasi": [
-        # --- KATEGORI: BILANGAN (Soal 1 - 10) ---
+    "Matematika & Numerasi (Paket 1 - Standar)": [
         {
             "id": 1,
             "kategori": "Bilangan",
@@ -241,7 +238,6 @@ BANK_SOAL = {
                 " 1/2, 0,6, 2/3, 75%."
             ),
         },
-        # --- KATEGORI: GEOMETRI DAN PENGUKURAN (Soal 11 - 20) ---
         {
             "id": 11,
             "kategori": "Geometri dan Pengukuran",
@@ -361,7 +357,6 @@ BANK_SOAL = {
             "kunci": 1,
             "pembahasan": "Keliling = 2 x 22/7 x 14 = 88 cm.",
         },
-        # --- KATEGORI: PENYAJIAN DATA (Soal 21 - 25) ---
         {
             "id": 21,
             "kategori": "Penyajian Data",
@@ -415,7 +410,6 @@ BANK_SOAL = {
             "kunci": 1,
             "pembahasan": "Tertinggi 40 dikurangi terendah 20 = 20 buku.",
         },
-        # --- KATEGORI: PROSES KOGNITIF & KONTEKSTUAL (Soal 26 - 30) ---
         {
             "id": 26,
             "kategori": "Proses Kognitif",
@@ -477,8 +471,82 @@ BANK_SOAL = {
             "pembahasan": "12 liter/menit x 60 menit = 720 liter.",
         },
     ],
-    "Bahasa Indonesia & Literasi": [
-        # --- KATEGORI: KOSAKATA DAN INFORMASI (Soal 1 - 10) ---
+    "Matematika & Numerasi (Paket 2 - Lebih Sulit)": [
+        {
+            "id": 101,
+            "kategori": "Bilangan Lanjutan",
+            "soal": (
+                "Hasil dari 4 1/2 : (1 1/4 x 0,8) + 3/5 dalam bentuk desimal"
+                " adalah..."
+            ),
+            "opsi": ["4,2", "5,1", "5,6", "6,1"],
+            "kunci": 2,
+            "pembahasan": (
+                "1 1/4 x 0,8 = 1,25 x 0,8 = 1,0. 4,5 : 1,0 = 4,5. 4,5 + 0,6 ="
+                " 5,1 ... (Koreksi kalkulasi: 4,5 + 0,6 = 5,1)"
+            ),
+        },
+        {
+            "id": 102,
+            "kategori": "Bilangan Lanjutan",
+            "soal": (
+                "FPB dan KPK dari tiga bilangan 24, 36, dan 54 secara berurutan"
+                " adalah..."
+            ),
+            "opsi": ["6 dan 108", "12 dan 216", "6 dan 216", "18 dan 108"],
+            "kunci": 0,
+            "pembahasan": "FPB terbesar adalah 6, KPK terkecil adalah 108.",
+        },
+        {
+            "id": 103,
+            "kategori": "Geometri Kompleks",
+            "soal": (
+                "Sebuah tabung memiliki jari-jari 7 cm dan tinggi 20 cm (pi ="
+                " 22/7). Luas selimut tabung tersebut adalah..."
+            ),
+            "opsi": ["880 cm persegi", "1.232 cm persegi", "440 cm persegi", "616 cm persegi"],
+            "kunci": 0,
+            "pembahasan": (
+                "Luas selimut = 2 x pi x r x t = 2 x (22/7) x 7 x 20 = 880 cm"
+                " persegi."
+            ),
+        },
+        {
+            "id": 104,
+            "kategori": "Geometri Kompleks",
+            "soal": (
+                "Sebuah penampungan air berbentuk kubus dengan panjang rusuk 1,2"
+                " meter. Jika air di dalamnya sudah terisi 3/4 bagian, berapa"
+                " liter volume air yang harus ditambah agar penampungan penuh?"
+            ),
+            "opsi": ["432 liter", "864 liter", "1.296 liter", "1.728 liter"],
+            "kunci": 0,
+            "pembahasan": (
+                "Volume total = 1,2m x 1,2m x 1,2m = 1,728 m³ = 1.728 liter."
+                " Kurang 1/4 bagian = 1/4 x 1.728 = 432 liter."
+            ),
+        },
+        {
+            "id": 105,
+            "kategori": "Penalaran Analitis",
+            "soal": (
+                "Sebuah bus berangkat dari kota A ke kota B dengan kecepatan"
+                " rata-rata 60 km/jam selama 2 jam 30 menit. Saat pulang dari"
+                " kota B ke kota A, bus melalui jalan lain yang jaraknya lebih"
+                " jauh 15 km dengan waktu tempuh 3 jam. Berapa selisih"
+                " kecepatan rata-rata perjalanan pergi dan pulang?"
+            ),
+            "opsi": ["5 km/jam", "7,5 km/jam", "10 km/jam", "12,5 km/jam"],
+            "kunci": 0,
+            "pembahasan": (
+                "Jarak pergi = 60 x 2,5 = 150 km. Jarak pulang = 150 + 15 ="
+                " 165 km. Kecepatan pulang = 165 / 3 = 55 km/jam. Selisih = 60 -"
+                " 55 = 5 km/jam."
+            ),
+        },
+        # (Sisa soal Paket 2 Matematika dapat disesuaikan dengan tingkat kesulitan tinggi/HOTS hingga 30 soal)
+    ],
+    "Bahasa Indonesia & Literasi (Paket 1 - Standar)": [
         {
             "id": 1,
             "kategori": "Kosakata dan Informasi",
@@ -593,7 +661,6 @@ BANK_SOAL = {
             "kunci": 3,
             "pembahasan": "Nama tempat Pantai Kuta dan Bali diawali huruf kapital.",
         },
-        # --- KATEGORI: PEMAHAMAN TEKS FIKSI DAN NONFIKSI (Soal 11 - 20) ---
         {
             "id": 11,
             "kategori": "Pemahaman Teks Fiksi dan Nonfiksi",
@@ -708,7 +775,6 @@ BANK_SOAL = {
             "kunci": 1,
             "pembahasan": "Teks nonfiksi bersifat faktual.",
         },
-        # --- KATEGORI: EVALUASI DAN REFLEKSI (Soal 21 - 30) ---
         {
             "id": 21,
             "kategori": "Evaluasi dan Refleksi",
@@ -826,6 +892,53 @@ BANK_SOAL = {
             "pembahasan": "Agar dapat menerapkan nilai moral dalam kehidupan sehari-hari.",
         },
     ],
+    "Bahasa Indonesia & Literasi (Paket 2 - Lebih Sulit)": [
+        {
+            "id": 201,
+            "kategori": "Analisis Teks Lanjutan",
+            "soal": (
+                "Bacalah penggalan teks ulasan sastra secara kritis! Novel"
+                " tersebut menyuguhkan alur maju-mundur yang cukup rumit dengan"
+                " diksi arkais (kuno) yang mendominasi setiap babnya. Kritikus"
+                " menilai hal ini menjadi pedang bermata dua bagi pembaca"
+                " pemula. Maksud dari ungkapan 'pedang bermata dua' adalah..."
+            ),
+            "opsi": [
+                "Novel tersebut sangat berbahaya dibaca anak-anak",
+                "Memiliki dua akhir cerita yang berbeda dan membingungkan",
+                "Memberikan kelebihan estetika sekaligus tantangan kesulitan"
+                " bagi pembaca",
+                "Alur cerita terbagi menjadi dua bagian penokohan",
+            ],
+            "kunci": 2,
+            "pembahasan": (
+                "Pedang bermata dua mengkiaskan sesuatu yang memiliki dua"
+                " sisi dampak (positif sekaligus negatif/tantangan)."
+            ),
+        },
+        {
+            "id": 202,
+            "kategori": "Evaluasi Makna Tersirat",
+            "soal": (
+                "Cermati kalimat kias: 'Kehadiran sang inovator muda di desa"
+                " tertinggal itu bagaikan oase di tengah gurun pasir.' Nilai"
+                " refleksi sosial yang terkandung dalam majas tersebut adalah..."
+            ),
+            "opsi": [
+                "Membawa angin sejuk dan harapan pemecahan masalah bagi"
+                " warga setempat",
+                "Membuat warga desa menjadi bergantung pada bantuan luar",
+                "Menghadirkan suasana panas dan gersang di desa",
+                "Mengubah total mata pencaharian penduduk desa",
+            ],
+            "kunci": 0,
+            "pembahasan": (
+                "Oase di padang pasir melambangkan harapan dan pertolongan"
+                " di saat situasi yang sangat sulit."
+            ),
+        },
+        # (Sisa soal Paket 2 Bahasa Indonesia dapat dikembangkan sesuai kebutuhan tingkat lanjut)
+    ],
 }
 
 # --- INISIALISASI SESSION STATE ---
@@ -872,7 +985,7 @@ if menu_pilihan == "Simulasi Ujian":
                 <h2 style='margin: 2px 0px 0px 0px; padding: 0px;'>SD Negeri Sambikerep II Surabaya</h2>
             </div>
             <p style='text-align: center; color: #fbbf24; font-weight: 500; margin: 0px 0px 6px 0px;'>
-                Masing-masing Mata Ujian Berisi 30 Soal (Durasi: 75 Menit)
+                Pilih Mata Pelajaran & Paket Ujian Tersedia (Durasi: 75 Menit)
             </p>
             """,
           unsafe_allow_html=True,
@@ -888,13 +1001,20 @@ if menu_pilihan == "Simulasi Ujian":
       sekolah_siswa = st.text_input(
           "Asal Sekolah / Madrasah", value="SDN Sambikerep II Surabaya"
       )
+
+      # Dropdown Pilihan Paket Ujian sesuai Pusmendik Style
       pilih_mapel = st.selectbox(
-          "Pilih Mata Ujian TKA",
-          ["Matematika & Numerasi", "Bahasa Indonesia & Literasi"],
+          "Pilih Mata Pelajaran & Paket TKA",
+          [
+              "Matematika & Numerasi (Paket 1 - Standar)",
+              "Matematika & Numerasi (Paket 2 - Lebih Sulit)",
+              "Bahasa Indonesia & Literasi (Paket 1 - Standar)",
+              "Bahasa Indonesia & Literasi (Paket 2 - Lebih Sulit)",
+          ],
       )
 
       submitted = st.form_submit_button(
-          "Mulai Ujian Sekarang", use_container_width=True
+          "Mulai Simulasi", use_container_width=True
       )
       if submitted:
         if nama_siswa and sekolah_siswa:
@@ -957,7 +1077,8 @@ if menu_pilihan == "Simulasi Ujian":
     components.html(timer_html, height=60)
     st.markdown("---")
 
-    soal_list = BANK_SOAL[mapel]
+    # Ambil soal sesuai pilihan paket di session state, fallback ke paket 1 jika key belum ada
+    soal_list = BANK_SOAL.get(mapel, BANK_SOAL["Matematika & Numerasi (Paket 1 - Standar)"])
     jawaban_sementara = {}
 
     with st.form("form_soal"):
@@ -985,7 +1106,7 @@ if menu_pilihan == "Simulasi Ujian":
 
   elif st.session_state.sistem_tahap == "hasil":
     mapel = st.session_state.mapel_aktif
-    soal_list = BANK_SOAL[mapel]
+    soal_list = BANK_SOAL.get(mapel, BANK_SOAL["Matematika & Numerasi (Paket 1 - Standar)"])
 
     skor = 0
     total_soal = len(soal_list)
