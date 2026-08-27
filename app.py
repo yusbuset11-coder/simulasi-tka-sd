@@ -13,17 +13,30 @@ st.set_page_config(
     layout="centered",
 )
 
-# Tempatkan di bagian sidebar atau menu pengaturan/admin
+# --- PENGATURAN ADMIN DENGAN PASSWORD ---
 with st.sidebar:
   st.subheader('Pengaturan Admin')
-  if st.button('🗑️ Hapus Semua Data Hasil Uji Coba'):
-    files_to_delete = ['rekap_hasil_tka.csv', 'rekap_hasil_tka.xlsx']
-    for file in files_to_delete:
-      if os.path.exists(file):
-        os.remove(file)
-    st.success(
-        'Semua data rekapitulasi berhasil dihapus! Silakan *refresh* halaman.'
-    )
+
+  # Kotak input password yang disembunyikan
+  password_admin = st.text_input(
+      'Masukkan Password Admin', type='password', key='input_pwd_admin'
+  )
+
+  # Tombol hapus hanya muncul jika password benar
+  if password_admin == 'admin123':  # Anda bisa ubah 'admin123' sesuai keinginan
+    st.success('Mode Admin Aktif ✓')
+    if st.button('🗑️ Hapus Semua Data Hasil Uji Coba'):
+      files_to_delete = ['rekap_hasil_tka.csv', 'rekap_hasil_tka.xlsx']
+      for file in files_to_delete:
+        if os.path.exists(file):
+          os.remove(file)
+      st.success(
+          'Semua data rekapitulasi berhasil dihapus! Silakan *refresh* halaman.'
+      )
+  elif password_admin != '':
+    st.error('Password salah!')
+
+  st.markdown('---')
 
 # --- CSS CUSTOM UNTUK WARNA TOMBOL YANG TEGAS ---
 st.markdown(
