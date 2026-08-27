@@ -111,8 +111,25 @@ def simpan_hasil_ke_excel(
       }]
   )
   if os.path.exists(FILE_REKAP):
-    data_lama = pd.read_excel(FILE_REKAP)
-    data_updated = pd.concat([data_lama, data_baru], ignore_index=True)
+    try:
+      data_lama = pd.read_excel(FILE_REKAP)
+      if "Kelas" not in data_lama.columns:
+        data_lama = pd.DataFrame(
+            columns=[
+                "Tanggal Simulasi",
+                "Waktu Sistem",
+                "Nama Siswa",
+                "Kelas",
+                "Asal Sekolah",
+                "Mata Ujian & Paket",
+                "Nilai Akhir",
+                "Kategori Pencapaian",
+                "Deskripsi Kemampuan",
+            ]
+        )
+      data_updated = pd.concat([data_lama, data_baru], ignore_index=True)
+    except Exception:
+      data_updated = data_baru
   else:
     data_updated = data_baru
   data_updated.to_excel(FILE_REKAP, index=False)
@@ -1209,36 +1226,59 @@ elif menu_pilihan == "Rekap Hasil TKA":
   st.markdown("---")
 
   if os.path.exists(FILE_REKAP):
-    df_rekap = pd.read_excel(FILE_REKAP)
+    try:
+      df_rekap = pd.read_excel(FILE_REKAP)
+      if "Kelas" not in df_rekap.columns:
+        df_rekap = pd.DataFrame(
+            columns=[
+                "Tanggal Simulasi",
+                "Waktu Sistem",
+                "Nama Siswa",
+                "Kelas",
+                "Asal Sekolah",
+                "Mata Ujian & Paket",
+                "Nilai Akhir",
+                "Kategori Pencapaian",
+                "Deskripsi Kemampuan",
+            ]
+        )
+    except Exception:
+      df_rekap = pd.DataFrame()
 
-    # Filter Interaktif Kelas & Mata Pelajaran
-    col_f1, col_f2 = st.columns(2)
-    with col_f1:
-      list_kelas = ["Semua Kelas"] + sorted(
-          df_rekap["Kelas"].astype(str).unique().tolist()
-      )
-      pilih_kelas = st.selectbox("🔍 Filter Berdasarkan Kelas", list_kelas)
-    with col_f2:
-      list_mapel = ["Semua Mata Pelajaran"] + sorted(
-          df_rekap["Mata Ujian & Paket"].astype(str).unique().tolist()
-      )
-      pilih_mapel = st.selectbox(
-          "🔍 Filter Berdasarkan Mata Pelajaran", list_mapel
-      )
+    if not df_rekap.empty:
+      # Filter Interaktif Kelas & Mata Pelajaran
+      col_f1, col_f2 = st.columns(2)
+      with col_f1:
+        list_kelas = ["Semua Kelas"] + sorted(
+            df_rekap["Kelas"].astype(str).unique().tolist()
+        )
+        pilih_kelas = st.selectbox("🔍 Filter Berdasarkan Kelas", list_kelas)
+      with col_f2:
+        list_mapel = ["Semua Mata Pelajaran"] + sorted(
+            df_rekap["Mata Ujian & Paket"].astype(str).unique().tolist()
+        )
+        pilih_mapel = st.selectbox(
+            "🔍 Filter Berdasarkan Mata Pelajaran", list_mapel
+        )
 
-    df_filtered = df_rekap.copy()
-    if pilih_kelas != "Semua Kelas":
-      df_filtered = df_filtered[df_filtered["Kelas"] == pilih_kelas]
-    if pilih_mapel != "Semua Mata Pelajaran":
-      df_filtered = df_filtered[df_filtered["Mata Ujian & Paket"] == pilih_mapel]
+      df_filtered = df_rekap.copy()
+      if pilih_kelas != "Semua Kelas":
+        df_filtered = df_filtered[df_filtered["Kelas"] == pilih_kelas]
+      if pilih_mapel != "Semua Mata Pelajaran":
+        df_filtered = df_filtered[df_filtered["Mata Ujian & Paket"] == pilih_mapel]
 
-    df_filtered.insert(0, "No.", range(1, len(df_filtered) + 1))
+      df_filtered.insert(0, "No.", range(1, len(df_filtered) + 1))
 
-    if not df_filtered.empty:
-      st.dataframe(df_filtered, use_container_width=True, hide_index=True)
-      st.info(f"Total data sesuai filter: {len(df_filtered)} data ujian.")
+      if not df_filtered.empty:
+        st.dataframe(df_filtered, use_container_width=True, hide_index=True)
+        st.info(f"Total data sesuai filter: {len(df_filtered)} data ujian.")
+      else:
+        st.warning("Tidak ada data yang sesuai dengan filter yang dipilih.")
     else:
-      st.warning("Tidak ada data yang sesuai dengan filter yang dipilih.")
+      st.warning(
+          "Belum ada data rekap hasil ujian yang tersimpan atau format data"
+          " kosong. Silakan selesaikan simulasi ujian terlebih dahulu."
+      )
   else:
     st.warning(
         "Belum ada data rekap hasil ujian yang tersimpan. Silakan selesaikan"
@@ -1258,50 +1298,70 @@ elif menu_pilihan == "Download Hasil TKA":
   st.markdown("---")
 
   if os.path.exists(FILE_REKAP):
-    df_rekap = pd.read_excel(FILE_REKAP)
+    try:
+      df_rekap = pd.read_excel(FILE_REKAP)
+      if "Kelas" not in df_rekap.columns:
+        df_rekap = pd.DataFrame(
+            columns=[
+                "Tanggal Simulasi",
+                "Waktu Sistem",
+                "Nama Siswa",
+                "Kelas",
+                "Asal Sekolah",
+                "Mata Ujian & Paket",
+                "Nilai Akhir",
+                "Kategori Pencapaian",
+                "Deskripsi Kemampuan",
+            ]
+        )
+    except Exception:
+      df_rekap = pd.DataFrame()
 
-    # Filter Interaktif Kelas & Mata Pelajaran
-    col_f1, col_f2 = st.columns(2)
-    with col_f1:
-      list_kelas = ["Semua Kelas"] + sorted(
-          df_rekap["Kelas"].astype(str).unique().tolist()
-      )
-      pilih_kelas = st.selectbox("🔍 Filter Berdasarkan Kelas", list_kelas)
-    with col_f2:
-      list_mapel = ["Semua Mata Pelajaran"] + sorted(
-          df_rekap["Mata Ujian & Paket"].astype(str).unique().tolist()
-      )
-      pilih_mapel = st.selectbox(
-          "🔍 Filter Berdasarkan Mata Pelajaran", list_mapel
-      )
+    if not df_rekap.empty:
+      # Filter Interaktif Kelas & Mata Pelajaran
+      col_f1, col_f2 = st.columns(2)
+      with col_f1:
+        list_kelas = ["Semua Kelas"] + sorted(
+            df_rekap["Kelas"].astype(str).unique().tolist()
+        )
+        pilih_kelas = st.selectbox("🔍 Filter Berdasarkan Kelas", list_kelas)
+      with col_f2:
+        list_mapel = ["Semua Mata Pelajaran"] + sorted(
+            df_rekap["Mata Ujian & Paket"].astype(str).unique().tolist()
+        )
+        pilih_mapel = st.selectbox(
+            "🔍 Filter Berdasarkan Mata Pelajaran", list_mapel
+        )
 
-    df_filtered = df_rekap.copy()
-    if pilih_kelas != "Semua Kelas":
-      df_filtered = df_filtered[df_filtered["Kelas"] == pilih_kelas]
-    if pilih_mapel != "Semua Mata Pelajaran":
-      df_filtered = df_filtered[df_filtered["Mata Ujian & Paket"] == pilih_mapel]
+      df_filtered = df_rekap.copy()
+      if pilih_kelas != "Semua Kelas":
+        df_filtered = df_filtered[df_filtered["Kelas"] == pilih_kelas]
+      if pilih_mapel != "Semua Mata Pelajaran":
+        df_filtered = df_filtered[df_filtered["Mata Ujian & Paket"] == pilih_mapel]
 
-    df_display = df_filtered.copy()
-    df_display.insert(0, "No.", range(1, len(df_display) + 1))
+      df_display = df_filtered.copy()
+      df_display.insert(0, "No.", range(1, len(df_display) + 1))
 
-    if not df_display.empty:
-      st.dataframe(df_display, use_container_width=True, hide_index=True)
+      if not df_display.empty:
+        st.dataframe(df_display, use_container_width=True, hide_index=True)
 
-      output = io.BytesIO()
-      with pd.ExcelWriter(output, engine="openpyxl") as writer:
-        df_filtered.to_excel(writer, index=False, sheet_name="Rekap TKA")
-      excel_data = output.getvalue()
+        output = io.BytesIO()
+        with pd.ExcelWriter(output, engine="openpyxl") as writer:
+          df_filtered.to_excel(writer, index=False, sheet_name="Rekap TKA")
+        excel_data = output.getvalue()
 
-      st.download_button(
-          label="📥 Download Data Rekap Terfilter (Excel .xlsx)",
-          data=excel_data,
-          file_name="rekap_hasil_tka_sdn_sambikerep_2.xlsx",
-          mime=(
-              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-          ),
-          use_container_width=True,
-      )
+        st.download_button(
+            label="📥 Download Data Rekap Terfilter (Excel .xlsx)",
+            data=excel_data,
+            file_name="rekap_hasil_tka_sdn_sambikerep_2.xlsx",
+            mime=(
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            ),
+            use_container_width=True,
+        )
+      else:
+        st.warning("Tidak ada data yang dapat diunduh sesuai filter terpilih.")
     else:
-      st.warning("Tidak ada data yang dapat diunduh sesuai filter terpilih.")
+      st.warning("Belum ada file rekap data yang tersedia untuk diunduh.")
   else:
     st.warning("Belum ada file rekap data yang tersedia untuk diunduh.")
