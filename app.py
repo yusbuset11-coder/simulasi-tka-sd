@@ -38,14 +38,78 @@ st.markdown(
 FILE_REKAP = "rekap_hasil_tka.xlsx"
 
 
-def simpan_hasil_ke_excel(nama, sekolah, mapel, nilai):
+def evaluasi_hasil(mapel, nilai):
+  # Kategori Pencapaian
+  if nilai >= 95.00:
+    kategori = "Istimewa"
+  elif nilai >= 80.00:
+    kategori = "Baik"
+  elif nilai >= 65.00:
+    kategori = "Memadai"
+  else:
+    kategori = "Kurang"
+
+  # Deskripsi Kemampuan berdasarkan Mata Ujian
+  if mapel == "Matematika & Numerasi":
+    if kategori == "Istimewa":
+      deskripsi = (
+          "Penguasaan yang sangat luar biasa pada seluruh kompetensi"
+          " Bilangan, Geometri, Pengukuran, dan Penalaran Matematis."
+      )
+    elif kategori == "Baik":
+      deskripsi = (
+          "Penguasaan yang baik pada sebagian besar konsep numerasi, mampu"
+          " menyelesaikan soal pemecahan masalah dengan baik."
+      )
+    elif kategori == "Memadai":
+      deskripsi = (
+          "Penguasaan kompetensi dasar matematika sudah memadai, namun perlu"
+          " penguatan pada soal penalaran kompleks."
+      )
+    else:
+      deskripsi = (
+          "Penguasaan kompetensi masih kurang, memerlukan bimbingan intensif"
+          " pada konsep dasar bilangan dan operasi hitung."
+      )
+  else:  # Bahasa Indonesia & Literasi
+    if kategori == "Istimewa":
+      deskripsi = (
+          "Penguasaan literasi yang sangat istimewa, sangat mahir dalam"
+          " memahami teks fiksi/nonfiksi, kosakata, dan evaluasi makna."
+      )
+    elif kategori == "Baik":
+      deskripsi = (
+          "Memiliki kemampuan literasi yang baik, mampu menangkap informasi"
+          " tersurat/tersirat serta memahami kaidah bahasa dengan baik."
+      )
+    elif kategori == "Memadai":
+      deskripsi = (
+          "Pemahaman isi teks dan kosakata sudah memadai, namun perlu"
+          " peningkatan pada tingkat evaluasi dan refleksi."
+      )
+    else:
+      deskripsi = (
+          "Penguasaan literasi masih kurang, memerlukan latihan intensif"
+          " dalam memahami isi bacaan dan kosakata baku."
+      )
+
+  return kategori, deskripsi
+
+
+def simpan_hasil_ke_excel(
+    tanggal, nama, kelas, sekolah, mapel, nilai, kategori, deskripsi
+):
   data_baru = pd.DataFrame(
       [{
-          "Waktu": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S"),
+          "Tanggal Simulasi": str(tanggal),
+          "Waktu Sistem": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S"),
           "Nama Siswa": nama,
+          "Kelas": kelas,
           "Asal Sekolah": sekolah,
           "Mata Ujian": mapel,
           "Nilai Akhir": nilai,
+          "Kategori Pencapaian": kategori,
+          "Deskripsi Kemampuan": deskripsi,
       }]
   )
   if os.path.exists(FILE_REKAP):
@@ -56,7 +120,7 @@ def simpan_hasil_ke_excel(nama, sekolah, mapel, nilai):
   data_updated.to_excel(FILE_REKAP, index=False)
 
 
-# --- BANK SOAL LENGKAP (30 SOAL MATEMATIKA & 30 SOAL BAHASA INDONESIA) ---
+# --- BANK SOAL LENGKAP ---
 BANK_SOAL = {
     "Matematika & Numerasi": [
         # --- KATEGORI: BILANGAN (Soal 1 - 10) ---
@@ -792,7 +856,6 @@ st.sidebar.markdown(
 # ==========================================
 if menu_pilihan == "Simulasi Ujian":
   if st.session_state.sistem_tahap == "login":
-    # --- LOGO LEBIH BESAR DALAM LINGKARAN PUTIH KECIL ---
     logo_path = os.path.join(os.path.dirname(__file__), "logo.png")
     if os.path.exists(logo_path):
       with open(logo_path, "rb") as f:
@@ -817,7 +880,11 @@ if menu_pilihan == "Simulasi Ujian":
     st.markdown("---")
 
     with st.form("form_siswa"):
+      tanggal_simulasi = st.date_input(
+          "Tanggal Simulasi", value=pd.Timestamp.today()
+      )
       nama_siswa = st.text_input("Nama Lengkap Siswa")
+      kelas_siswa = st.selectbox("Kelas", ["VI-a", "VI-b", "VI-c"])
       sekolah_siswa = st.text_input(
           "Asal Sekolah / Madrasah", value="SDN Sambikerep II Surabaya"
       )
@@ -831,7 +898,9 @@ if menu_pilihan == "Simulasi Ujian":
       )
       if submitted:
         if nama_siswa and sekolah_siswa:
+          st.session_state.tanggal = tanggal_simulasi
           st.session_state.nama = nama_siswa
+          st.session_state.kelas = kelas_siswa
           st.session_state.sekolah = sekolah_siswa
           st.session_state.mapel_aktif = pilih_mapel
           st.session_state.end_time = time.time() + (75 * 60)
@@ -844,7 +913,6 @@ if menu_pilihan == "Simulasi Ujian":
   elif st.session_state.sistem_tahap == "ujian":
     mapel = st.session_state.mapel_aktif
 
-    # Cek apakah waktu sudah habis di sisi server
     sisa_detik = int(st.session_state.end_time - time.time())
     if sisa_detik <= 0:
       st.warning("Waktu ujian telah habis!")
@@ -853,11 +921,10 @@ if menu_pilihan == "Simulasi Ujian":
 
     st.markdown(f"### 📝 Ujian: {mapel}")
     st.markdown(
-        f"**Peserta:** {st.session_state.nama} | **Asal:**"
-        f" {st.session_state.sekolah}"
+        f"**Peserta:** {st.session_state.nama} (Kelas {st.session_state.kelas})"
+        f" | **Asal:** {st.session_state.sekolah}"
     )
 
-    # --- TIMER REAL-TIME BERBASIS JAVASCRIPT ---
     timer_html = f"""
         <div style="background-color: #5c1d1d; border: 1px solid #8b2626; padding: 12px; border-radius: 8px; color: #ffcccc; text-align: center; font-family: sans-serif;">
             ⏳ <b>Sisa Waktu Ujian:</b> <span id="countdown" style="font-weight: bold; font-size: 1.2em;">Menghitung...</span>
@@ -931,7 +998,11 @@ if menu_pilihan == "Simulasi Ujian":
         "<h4 style='text-align: center;'>SD Negeri Sambikerep II Surabaya</h4>",
         unsafe_allow_html=True,
     )
-    st.info(f"**Nama:** {st.session_state.nama} | **Mata Ujian:** {mapel}")
+    st.info(
+        f"**Tanggal:** {st.session_state.tanggal} | **Nama:**"
+        f" {st.session_state.nama} | **Kelas:** {st.session_state.kelas} |"
+        f" **Mata Ujian:** {mapel}"
+    )
 
     for idx, item in enumerate(soal_list):
       jawaban_user = st.session_state.jawaban_peserta.get(item["id"])
@@ -953,11 +1024,50 @@ if menu_pilihan == "Simulasi Ujian":
       st.markdown(f"💡 *Pembahasan:* {item['pembahasan']}")
       st.markdown("---")
 
-    nilai_akhir = int((skor / total_soal) * 100)
-    st.metric(label="Nilai Akhir Simulasi TKA", value=f"{nilai_akhir} / 100")
+    nilai_akhir = round((skor / total_soal) * 100, 2)
+    kategori, deskripsi = evaluasi_hasil(mapel, nilai_akhir)
+
+    st.metric(label="Nilai Akhir Simulasi TKA", value=f"{nilai_akhir:.2f} / 100")
+    st.info(f"🏆 **Kategori Pencapaian:** **{kategori}**")
+    st.success(f"📖 **Deskripsi Kemampuan:** {deskripsi}")
+    st.markdown("---")
+
+    # --- ANALISIS PER KATEGORI KOMPETENSI ---
+    st.markdown("### 🔍 Rincian Analisis Berdasarkan Kompetensi")
+    analisis_kategori = {}
+
+    for item in soal_list:
+      kat = item["kategori"]
+      if kat not in analisis_kategori:
+        analisis_kategori[kat] = {"total": 0, "benar": 0}
+
+      analisis_kategori[kat]["total"] += 1
+      jawaban_user = st.session_state.jawaban_peserta.get(item["id"])
+      if jawaban_user == item["opsi"][item["kunci"]]:
+        analisis_kategori[kat]["benar"] += 1
+
+    data_analisis = []
+    for kat, val in analisis_kategori.items():
+      persentase = round((val["benar"] / val["total"]) * 100, 2)
+      data_analisis.append({
+          "Kompetensi / Kategori": kat,
+          "Soal Dijawab Benar": f"{val['benar']} dari {val['total']}",
+          "Tingkat Penguasaan": f"{persentase}%",
+      })
+
+    df_analisis = pd.DataFrame(data_analisis)
+    st.dataframe(df_analisis, use_container_width=True)
+    st.markdown("---")
 
     simpan_hasil_ke_excel(
-        st.session_state.nama, st.session_state.sekolah, mapel, nilai_akhir
+        st.session_state.tanggal,
+        st.session_state.nama,
+        st.session_state.kelas,
+        st.session_state.sekolah,
+        mapel,
+        f"{nilai_akhir:.2f}",
+        kategori,
+        deskripsi,
     )
 
     col1, col2 = st.columns(2)
@@ -977,7 +1087,7 @@ elif menu_pilihan == "Rekap Hasil TKA":
   st.markdown("## 📈 Rekap Hasil TKA SDN Sambikerep II Surabaya")
   st.markdown(
       "Berikut adalah daftar rekapitulasi nilai siswa yang telah menyelesaikan"
-      " simulasi ujian:"
+      " simulasi ujian beserta kategori dan deskripsi kemampuannya:"
   )
   st.markdown("---")
 
@@ -997,8 +1107,9 @@ elif menu_pilihan == "Rekap Hasil TKA":
 elif menu_pilihan == "Download Hasil TKA":
   st.markdown("## 📥 Download Rekap Hasil TKA")
   st.markdown(
-      "Unduh laporan rekapitulasi nilai ujian siswa dalam format file Microsoft"
-      " Excel (.xlsx) agar langsung terbagi rapi ke dalam kolom."
+      "Unduh laporan rekapitulasi nilai ujian siswa lengkap dengan skor,"
+      " kategori pencapaian, dan deskripsi kemampuan dalam format file"
+      " Microsoft Excel (.xlsx)."
   )
   st.markdown("---")
 
