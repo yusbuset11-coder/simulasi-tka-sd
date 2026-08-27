@@ -1190,7 +1190,8 @@ if menu_pilihan == "Simulasi Ujian":
       })
 
     df_analisis = pd.DataFrame(data_analisis)
-    st.dataframe(df_analisis, use_container_width=True)
+    df_analisis.insert(0, "No.", range(1, len(df_analisis) + 1))
+    st.dataframe(df_analisis, use_container_width=True, hide_index=True)
     st.markdown("---")
 
     simpan_hasil_ke_excel(
